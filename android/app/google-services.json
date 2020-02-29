@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "713896057938",
+    "firebase_url": "https://jtblotto-f3f8b.firebaseio.com",
+    "project_id": "jtblotto-f3f8b",
+    "storage_bucket": "jtblotto-f3f8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713896057938:android:cd1b0b8df8ebc732e5938b",
+        "android_client_info": {
+          "package_name": "com.jtb.jtblotto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713896057938-24dasqssc8n0prgin8m8ni358djlr3dg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jtb.jtblotto",
+            "certificate_hash": "a55be44f9fe4c89f5fcf314a1887bc8ab3e037fe"
+          }
+        },
+        {
+          "client_id": "713896057938-8os6n6fv1bme8qgi4lsl2o1rb06tf8sp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIyopGVeN4D0WFX78MAUrV-PPUaujMPb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713896057938-8os6n6fv1bme8qgi4lsl2o1rb06tf8sp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-9695790043722201~1735664360"
+    }
+  ],
+  "configuration_version": "1"
+}
