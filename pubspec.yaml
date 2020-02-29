@@ -26,6 +26,7 @@ dependencies:
   admob_flutter: ^0.3.4
   permission_handler: ^3.2.2
   splashscreen: ^1.2.0
+  provider : ^3.0.0+1
 
 dev_dependencies:
   flutter_test:

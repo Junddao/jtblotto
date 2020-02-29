@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:jtblotto/data/tabstates.dart';
 import 'package:jtblotto/rootpage.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main(){
@@ -76,10 +78,16 @@ class AfterSplash extends StatelessWidget {
   Widget build(BuildContext context) {
    
     permission();
-    return MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<TabStates> (builder : (context) => TabStates(),),
+        // ChangeNotifierProvider<YoutubeInfo> (builder: (context) => YoutubeInfo(),),
+      ] ,
+      child: MaterialApp(
         home : RootPage(),
+
+      )
     );
-    
   }
   void permission() async {
 
