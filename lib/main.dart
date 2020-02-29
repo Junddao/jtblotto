@@ -1,54 +1,34 @@
 import 'dart:math';
 
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:jtblotto/services/myadshelper.dart';
+import 'package:jtblotto/rootpage.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:splashscreen/splashscreen.dart';
 
-void main() => runApp(LottoApp());
-
-
-class LottoApp extends StatefulWidget {
-
-  
-  @override
-  _LottoAppState createState() => _LottoAppState();
+void main(){
+  Admob.initialize("com.jtb.jtbMusicPlayer");
+  runApp(
+    new MaterialApp(
+      home: MyApp(),
+    ) 
+  );
 }
 
-class _LottoAppState extends State<LottoApp> {
-
+class MyApp extends StatefulWidget{
   @override
-  void initState() {
-    
-    super.initState();
-    Ads.showBannerAd();  
-  }
+  _LottoAppState createState() => new _LottoAppState();
+}
+
+class _LottoAppState extends State<MyApp> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Simple Lotto',
       theme: ThemeData(primaryColor: Colors.white),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
-      // builder:(BuildContext context, Widget child){
-        
-      //   myBanner
-      //     // typically this happens well before the ad is shown
-      //     ..load()
-      //     ..show(
-      //       // Positions the banner ad 60 pixels from the bottom of the screen
-      //       anchorOffset: 0.0,
-      //       // Positions the banner ad 10 pixels from the center of the screen to the right
-      //       //horizontalCenterOffset: 0.0,
-      //       // Banner Position
-      //       anchorType: AnchorType.bottom,
-      //     );
-      //   return new Padding(
-      //     child: child,
-      //     padding: const EdgeInsets.only(
-      //       bottom: 50.0,
-      //     ),
-
-      //   );
-      // }
-
+      
       
     );
   
@@ -65,98 +45,48 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  var numbers = [0, 0, 0, 0, 0, 0];
-
   @override
   Widget build(BuildContext context) {
-
-    
-    // InterstitialAd myInterstitial = InterstitialAd(
-    //   // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-    //   // https://developers.google.com/admob/android/test-ads
-    //   // https://developers.google.com/admob/ios/test-ads
-    //   adUnitId: InterstitialAd.testAdUnitId,
-    //   targetingInfo: targetingInfo,
-    //   listener: (MobileAdEvent event) {
-    //     print("InterstitialAd event is $event");
-    //   },
-    // );
-
-    
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Simple Lotto'),
+ return new SplashScreen(
+      seconds: 1,
+      navigateAfterSeconds: new AfterSplash(),
+      title: new Text('/ J T B /',
+      style: new TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 20.0,
+        color: Colors.white,
+      ),),
+      
+      backgroundColor: Colors.grey[600],
+      styleTextUnderTheLoader: new TextStyle(
+        fontSize: 12.0,
+        fontWeight: FontWeight.bold,
+        color: Colors.white
       ),
-      body: Column(children: <Widget>[
-        Spacer(
-          flex: 1,
-        ),
-        Expanded(
-          flex: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[ 
-              Text(numbers[0].toString(), style: TextStyle(fontSize: 20),),
-              Text(numbers[1].toString(), style: TextStyle(fontSize: 20),),
-              Text(numbers[2].toString(), style: TextStyle(fontSize: 20),),
-              Text(numbers[3].toString(), style: TextStyle(fontSize: 20),),
-              Text(numbers[4].toString(), style: TextStyle(fontSize: 20),),
-              Text(numbers[5].toString(), style: TextStyle(fontSize: 20),),
-             
-          ],),
-        ),
-        Expanded(
-          flex: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[ 
-              
-          ],),
-        ),
-        Expanded(
-          flex: 1,
-            child: IconButton(
-              icon: Icon(Icons.refresh),
-              onPressed: () {
-                getNumber();
-                setState(() {
-                  
-                });
-              },
-            ),
-          ),
-           Spacer(
-          flex: 1,
-        ),
-      ],),
+      photoSize: 100.0,
+      onClick: ()=>print("Flutter Egypt"),
+      loaderColor: Colors.white,
+      //loadingText: Text('Now Loading'),
     );
   }
+}
 
-  getNumber(){
-    int position = 0;
-    
-    while(true)
-    {
-      bool isDuplicate = false;
-      int temp = new Random().nextInt(46);
-      for (var i = 0 ; i < 6; i++){
-       
-        if(numbers[i] == temp){
-            isDuplicate = true;
-          }
-      }
-      if(isDuplicate == false && temp != 0)
-      {
-        numbers[position] = temp;
-        position++;
-      }
-      
-      if(position > 5){
-        break;
-      }
-    }
+class AfterSplash extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
    
-    numbers.sort();
+    permission();
+    return MaterialApp(
+        home : RootPage(),
+    );
+    
   }
+  void permission() async {
+
+    // Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler().requestPermissions([PermissionGroup.microphone]);
+    // print('per1 : $permissions');
+    
+    
+  }
+
 }
