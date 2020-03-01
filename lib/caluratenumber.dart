@@ -14,9 +14,9 @@ class _CalurateNumberState extends State<CalurateNumber> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Simple Lotto'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('Simple Lotto'),
+      // ),
       body: Column(children: <Widget>[
         Spacer(
           flex: 1,

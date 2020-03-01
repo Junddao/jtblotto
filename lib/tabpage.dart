@@ -4,6 +4,7 @@ import 'package:jtblotto/data/tabstates.dart';
 import 'package:jtblotto/lottoinfopage.dart';
 import 'package:jtblotto/searchpage.dart';
 import 'package:provider/provider.dart';
+import 'package:jtblotto/tabpage.dart';
 
 class TabPage extends StatefulWidget {
   @override
@@ -22,10 +23,11 @@ class _TabPageState extends State<TabPage> {
           title: Text('JTB Lotto'),
           automaticallyImplyLeading: false,
         ),
-        body: _tabs[Provider.of<TabStates>(context).selectedIndex],
+        body:_tabs[Provider.of<TabStates>(context).selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
             onTap: _onItemTapped,
-            currentIndex: _selectedIndex,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: value.selectedIndex,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                   icon: Icon(Icons.home), title: Text('번호생성')),
@@ -40,7 +42,7 @@ class _TabPageState extends State<TabPage> {
 
   void _onItemTapped(int value) {
     setState(() {
-      _selectedIndex = value;
+      Provider.of<TabStates>(context).selectedIndex = value;
     });
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
@@ -91,8 +90,9 @@ class AfterSplash extends StatelessWidget {
   }
   void permission() async {
 
-    // Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler().requestPermissions([PermissionGroup.microphone]);
-    // print('per1 : $permissions');
+    await PermissionHandler().requestPermissions([PermissionGroup.camera]);
+    await PermissionHandler().requestPermissions([PermissionGroup.storage]);
+    
     
     
   }
