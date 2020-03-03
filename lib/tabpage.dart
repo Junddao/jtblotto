@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:jtblotto/caluratenumber.dart';
 import 'package:jtblotto/data/tabstates.dart';
+import 'package:jtblotto/homepage.dart';
 import 'package:jtblotto/lottoinfopage.dart';
 import 'package:jtblotto/searchpage.dart';
 import 'package:provider/provider.dart';
 import 'package:jtblotto/tabpage.dart';
+import 'package:qrscan/qrscan.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TabPage extends StatefulWidget {
   @override
@@ -13,7 +16,7 @@ class TabPage extends StatefulWidget {
 
 class _TabPageState extends State<TabPage> {
   int _selectedIndex = 0;
-  final List<Widget> _tabs = [CalurateNumber(), SearchPage(), LottoInfoPage()];
+  final List<Widget> _tabs = [HomePage(), SearchPage(), LottoInfoPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +24,28 @@ class _TabPageState extends State<TabPage> {
       builder: (context, value, child) => Scaffold(
         appBar: AppBar(
           title: Text('JTB Lotto'),
+          backgroundColor: Colors.indigo,
           automaticallyImplyLeading: false,
         ),
+        floatingActionButton: FloatingActionButton.extended(
+          icon: Icon(Icons.camera_alt),
+          label: Text('당첨 번호 확인'),
+          onPressed: () { _scan(); },
+          backgroundColor: Colors.indigo,
+        ),
         body:_tabs[Provider.of<TabStates>(context).selectedIndex],
-        bottomNavigationBar: BottomNavigationBar(
+          bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor: Colors.indigo,
             onTap: _onItemTapped,
             type: BottomNavigationBarType.fixed,
             currentIndex: value.selectedIndex,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                  icon: Icon(Icons.home), title: Text('번호생성')),
+                  icon: Icon(Icons.home), title: Text('Home')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.search), title: Text('QR 당첨확인')),
+                  icon: Icon(Icons.adb), title: Text('AI 번호 추천')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle), title: Text('당첨판매점 보기')),
+                  icon: Icon(Icons.account_circle), title: Text('통계')),
             ]),
       ),
     );
@@ -45,4 +56,16 @@ class _TabPageState extends State<TabPage> {
       Provider.of<TabStates>(context).selectedIndex = value;
     });
   }
+
+    Future _scan() async {
+    String barcode = await scan();
+    launchURL(barcode);
+    setState(() {});
+    
+  }
+
+   Future launchURL(String barcode) async {
+     await launch(barcode);
+   }
+
 }

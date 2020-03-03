@@ -26,8 +26,11 @@ class _LottoAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      color: Colors.grey,
       title: 'Simple Lotto',
-      theme: ThemeData(primaryColor: Colors.white),
+      theme: ThemeData(
+        primaryColor: Colors.white,
+      ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
       
       
@@ -48,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
- return new SplashScreen(
+    return new SplashScreen(
       seconds: 1,
       navigateAfterSeconds: new AfterSplash(),
       title: new Text('/ J T B /',
