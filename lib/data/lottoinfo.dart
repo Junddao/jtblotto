@@ -28,4 +28,21 @@ class LottoInfo{
  
   Map<String, dynamic> toJson() => _$LottoInfoToJson(this);
 
+  
+  Map<String, dynamic> toMap() => { 
+     'totSellamnt': totSellamnt,
+      'drwNo': drwNo,
+      'returnValue': returnValue,
+      'drwNoDate': drwNoDate,
+      'firstWinamnt': firstWinamnt,
+      'firstPrzwnerCo': firstPrzwnerCo,
+      'firstAccumamnt': firstAccumamnt,
+      'drwtNo1': drwtNo1,
+      'drwtNo2': drwtNo2,
+      'drwtNo3': drwtNo3,
+      'drwtNo4': drwtNo4,
+      'drwtNo5': drwtNo5,
+      'drwtNo6': drwtNo6,
+      'bnusNo': bnusNo,
+  };
 }
