@@ -1,14 +1,12 @@
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:jtblotto/data/listmodel.dart';
 import 'package:jtblotto/data/lottoinfo.dart';
-    
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:jtblotto/data/lottoinfo.dart';
 import 'package:jtblotto/services/database.dart';
-import 'package:jtblotto/services/dbhelper.dart';
+
 
 
 class LottoInfoPage extends StatefulWidget {
@@ -19,7 +17,6 @@ class LottoInfoPage extends StatefulWidget {
 class _LottoInfoPageState extends State<LottoInfoPage> {
 
   List<LottoInfo> _liLottoInfo = List<LottoInfo>();
-  List<ListItem> _listItems = List<ListItem>();
   var dbHelper;
   
 
@@ -29,23 +26,18 @@ class _LottoInfoPageState extends State<LottoInfoPage> {
   @override
   void initState() {
     super.initState();
-    dbHelper = DBHelper();
-    getLottoInfo();
+    getDBData();
+    getLottoInfo(_liLottoInfo.length);
   }
 
-  getLottoInfo(){
-    fetchLottoInfo().then((value) {
+  getLottoInfo(int drwCount){
+    fetchLottoInfo(drwCount).then((value) {
       setState(() {
         _liLottoInfo.addAll(value);  
       });
     });
   }
 
-  refreshList() {
-    setState(() {
-      _listItems = dbHelper.getListItem();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +55,14 @@ class _LottoInfoPageState extends State<LottoInfoPage> {
     );
   }
 
-  Future<List<LottoInfo>> fetchLottoInfo() async {
+  Future getDBData() async{
+    _liLottoInfo = await Database.readData();
+  }
+
+  Future<List<LottoInfo>> fetchLottoInfo(drwCount) async {
 
     var lottoInfos = List<LottoInfo>();
-    int episode = 1;
+    int episode = drwCount;
     while(true){
       http.Response response = await http.get(url + episode.toString());
       var lottoJson = jsonDecode(response.body);
