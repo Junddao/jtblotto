@@ -3,6 +3,7 @@ import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:jtblotto/data/tabstates.dart';
 import 'package:jtblotto/rootpage.dart';
+import 'package:jtblotto/services/database.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -83,7 +84,6 @@ class AfterSplash extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<TabStates> (builder : (context) => TabStates(),),
-        // ChangeNotifierProvider<YoutubeInfo> (builder: (context) => YoutubeInfo(),),
       ] ,
       child: MaterialApp(
         home : RootPage(),
