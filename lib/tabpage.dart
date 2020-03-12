@@ -33,7 +33,7 @@ class _TabPageState extends State<TabPage> {
           onPressed: () { _scan(); },
           backgroundColor: Colors.indigo,
         ),
-        body:_tabs[Provider.of<TabStates>(context).selectedIndex],
+        body:_tabs[Provider.of<TabStates>(context, listen: false).selectedIndex],
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: Colors.indigo,
             onTap: _onItemTapped,
@@ -53,7 +53,7 @@ class _TabPageState extends State<TabPage> {
 
   void _onItemTapped(int value) {
     setState(() {
-      Provider.of<TabStates>(context).selectedIndex = value;
+      Provider.of<TabStates>(context, listen: false).selectedIndex = value;
     });
   }
 

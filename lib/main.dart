@@ -1,15 +1,16 @@
 
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:jtblotto/data/lottoinfo.dart';
 import 'package:jtblotto/data/tabstates.dart';
 import 'package:jtblotto/rootpage.dart';
-import 'package:jtblotto/services/database.dart';
+import 'package:jtblotto/tabpage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main(){
-  Admob.initialize("com.jtb.jtbMusicPlayer");
+  Admob.initialize("com.jtb.jtblotto");
   runApp(
     new MaterialApp(
       home: MyApp(),
@@ -79,11 +80,18 @@ class _MyHomePageState extends State<MyHomePage> {
 class AfterSplash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-   
     permission();
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<TabStates> (builder : (context) => TabStates(),),
+        ChangeNotifierProvider(
+          create : (context) => TabStates(),
+          child: TabPage(),
+          
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LottoInfos(),
+          child: TabPage(),
+        ),
       ] ,
       child: MaterialApp(
         home : RootPage(),
@@ -95,9 +103,6 @@ class AfterSplash extends StatelessWidget {
 
     await PermissionHandler().requestPermissions([PermissionGroup.camera]);
     await PermissionHandler().requestPermissions([PermissionGroup.storage]);
-    
-    
-    
   }
 
 }

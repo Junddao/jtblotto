@@ -1,7 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:jtblotto/services/database.dart';
 
 part 'lottoinfo.g.dart';
+
+
+class LottoInfos with ChangeNotifier{
+  List<LottoInfo> liLottoInfos;
+
+
+  void addLottoInfo(LottoInfo lottoInfo) async {
+    liLottoInfos.add(lottoInfo);
+    notifyListeners();
+  }
+
+  void copyLottoInfo(List<LottoInfo> lottoInfos){
+    liLottoInfos = lottoInfos;
+    notifyListeners();
+  }
+}
+
 
 @JsonSerializable()
 class LottoInfo{

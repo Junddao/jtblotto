@@ -5,7 +5,9 @@ import 'package:jtblotto/data/lottoinfo.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:jtblotto/data/lottoinfo.dart';
+import 'package:jtblotto/selected_number_page.dart';
 import 'package:jtblotto/services/database.dart';
+import 'package:provider/provider.dart';
 import 'package:synchronized/synchronized.dart';
 
 
@@ -36,7 +38,7 @@ class _LottoInfoPageState extends State<LottoInfoPage> {
   getLottoInfo(int drwCount){
     fetchLottoInfo(drwCount).then((value) {
       // setState(() {
-        _liLottoInfo.addAll(value);  
+        Provider.of<LottoInfos>(context, listen: false).liLottoInfos.addAll(value);  
       // });
     });
   }
@@ -84,7 +86,7 @@ class _LottoInfoPageState extends State<LottoInfoPage> {
                     child: FlatButton(
                       child: Text('번호별 당첨 횟수'),
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => InputPhoneNumber()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SelectedNumberPage()));
                       },
                     ),
                   ),
@@ -97,7 +99,9 @@ class _LottoInfoPageState extends State<LottoInfoPage> {
 
   Future getDBData() async{
     _liLottoInfo = await Database.readData();
-    getLottoInfo(_liLottoInfo.length);
+    Provider.of<LottoInfos>(context, listen: false).copyLottoInfo(_liLottoInfo);
+    getLottoInfo(Provider.of<LottoInfos>(context, listen: false).liLottoInfos.length);
+     
   }
 
   Future<List<LottoInfo>> fetchLottoInfo(drwCount) async {
@@ -113,7 +117,7 @@ class _LottoInfoPageState extends State<LottoInfoPage> {
       }
       else{
         Database.createData(info);
-        lottoInfos.add(info);
+        Provider.of<LottoInfos>(context, listen: false).addLottoInfo(info);
         
         episode++;
       }
