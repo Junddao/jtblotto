@@ -85,12 +85,12 @@ class AfterSplash extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create : (context) => TabStates(),
-          child: TabPage(),
+          child: MyApp(),
           
         ),
         ChangeNotifierProvider(
           create: (context) => LottoInfos(),
-          child: TabPage(),
+          child: MyApp(),
         ),
       ] ,
       child: MaterialApp(

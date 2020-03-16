@@ -5,6 +5,7 @@ import 'package:jtblotto/data/lottoinfo.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:jtblotto/data/lottoinfo.dart';
+import 'package:jtblotto/notselectednumber.dart';
 import 'package:jtblotto/selected_number_page.dart';
 import 'package:jtblotto/services/database.dart';
 import 'package:provider/provider.dart';
@@ -35,94 +36,78 @@ class _LottoInfoPageState extends State<LottoInfoPage> {
     
   }
 
-  getLottoInfo(int drwCount){
-    fetchLottoInfo(drwCount).then((value) {
-      // setState(() {
-        Provider.of<LottoInfos>(context, listen: false).liLottoInfos.addAll(value);  
-      // });
-    });
-  }
+  // getLottoInfo(int drwCount){
+  //   fetchLottoInfo(drwCount).then((value) {
+  //     // setState(() {
+  //       Provider.of<LottoInfos>(context, listen: false).liLottoInfos.addAll(value);  
+  //     // });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     
     return Scaffold(
-      body: FutureBuilder(
-        future: lock.synchronized(getDBData),
-        builder: (BuildContext context, AsyncSnapshot snapshot){
-          switch(snapshot.connectionState){
-            case ConnectionState.waiting:
-              return Container(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-              break;
-            case ConnectionState.done:
-              if (snapshot.hasData == null) {
-                return Container();
-              }
-              break;
-            case ConnectionState.none:
-              return Container(
-                child: Center(
-                  child: Text('none'),
-                ),
-              );
-              break;
-            case ConnectionState.active:
-              return Container(
-                child: Center(
-                  child: Text('active'),
-                ),
-              );
-              break;
-            }
-          
-            return Container(
+      body: Container(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Expanded(
-                    child: FlatButton(
-                      child: Text('번호별 당첨 횟수'),
-                      onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SelectedNumberPage()));
-                      },
+                  Padding(padding: EdgeInsets.all(10),
+                    child: Container(
+                      color: Colors.amber[300],
+                      height: 50,
+                      child: FlatButton(
+                        child: Text('번호별 당첨 횟수'),
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SelectedNumberPage()));
+                        },
+                      ),
                     ),
-                  ),
-              ],)
-            );
-          }
-        ) 
+                  ),  
+                  Padding(padding: EdgeInsets.all(10),
+                    child: Container(
+                      color: Colors.amber[300],
+                      height: 50,
+                      child: FlatButton(
+                        child: Text('15주간 미출현 번호'),
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => NotSelectedNumber()));
+                        },
+                      ),
+                    ),
+                  ),  
+                ],
+              ),
+      ),
     );
   }
 
-  Future getDBData() async{
-    _liLottoInfo = await Database.readData();
-    Provider.of<LottoInfos>(context, listen: false).copyLottoInfo(_liLottoInfo);
-    getLottoInfo(Provider.of<LottoInfos>(context, listen: false).liLottoInfos.length);
+  // Future getDBData() async{
+  //   _liLottoInfo = await Database.readData();
+  //   Provider.of<LottoInfos>(context, listen: false).copyLottoInfo(_liLottoInfo);
+  //   getLottoInfo(Provider.of<LottoInfos>(context, listen: false).liLottoInfos.length);
      
-  }
+  // }
 
-  Future<List<LottoInfo>> fetchLottoInfo(drwCount) async {
+  // Future<List<LottoInfo>> fetchLottoInfo(drwCount) async {
 
-    var lottoInfos = List<LottoInfo>();
-    int episode = drwCount;
-    while(true){
-      http.Response response = await http.get(url + episode.toString());
-      var lottoJson = jsonDecode(response.body);
-      LottoInfo info = LottoInfo.fromJson(lottoJson);
-      if(info.returnValue.contains('fail')){
-        break;
-      }
-      else{
-        Database.createData(info);
-        Provider.of<LottoInfos>(context, listen: false).addLottoInfo(info);
+  //   var lottoInfos = List<LottoInfo>();
+  //   int episode = drwCount;
+  //   while(true){
+  //     http.Response response = await http.get(url + episode.toString());
+  //     var lottoJson = jsonDecode(response.body);
+  //     LottoInfo info = LottoInfo.fromJson(lottoJson);
+  //     if(info.returnValue.contains('fail')){
+  //       break;
+  //     }
+  //     else{
+  //       Database.createData(info);
+  //       Provider.of<LottoInfos>(context, listen: false).addLottoInfo(info);
         
-        episode++;
-      }
-    }
+  //       episode++;
+  //     }
+  //   }
     
-    return lottoInfos;
-  }
+  //   return lottoInfos;
+  // }
 }

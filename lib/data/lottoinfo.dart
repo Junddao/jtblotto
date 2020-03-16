@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:jtblotto/services/database.dart';
+import 'package:jtblotto/data/number_of_counter.dart';
+
 
 part 'lottoinfo.g.dart';
 
 
 class LottoInfos with ChangeNotifier{
   List<LottoInfo> liLottoInfos;
-
+  List<NumberOfCounter> top6Num;
+  List<NumberOfCounter> bottom6Num;
+  List<NumberOfCounter> notSelctedNum;
+  List<int> liNumbers;
 
   void addLottoInfo(LottoInfo lottoInfo) async {
     liLottoInfos.add(lottoInfo);
@@ -19,7 +23,6 @@ class LottoInfos with ChangeNotifier{
     notifyListeners();
   }
 }
-
 
 @JsonSerializable()
 class LottoInfo{

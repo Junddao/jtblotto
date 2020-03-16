@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:jtblotto/caluratenumber.dart';
+import 'package:jtblotto/calcuratenumber.dart';
 import 'package:jtblotto/data/tabstates.dart';
+import 'package:jtblotto/get_qr_camera.dart';
 import 'package:jtblotto/homepage.dart';
 import 'package:jtblotto/lottoinfopage.dart';
-import 'package:jtblotto/searchpage.dart';
+import 'package:jtblotto/services/myadshelper.dart';
 import 'package:provider/provider.dart';
-import 'package:jtblotto/tabpage.dart';
 import 'package:qrscan/qrscan.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 
 class TabPage extends StatefulWidget {
   @override
@@ -16,10 +17,17 @@ class TabPage extends StatefulWidget {
 
 class _TabPageState extends State<TabPage> {
   int _selectedIndex = 0;
-  final List<Widget> _tabs = [HomePage(), SearchPage(), LottoInfoPage()];
+  final List<Widget> _tabs = [HomePage(), CalcurateNumber(), GetQRCamera(), LottoInfoPage()];
 
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+    
     return Consumer<TabStates>(
       builder: (context, value, child) => Scaffold(
         appBar: AppBar(
@@ -27,13 +35,8 @@ class _TabPageState extends State<TabPage> {
           backgroundColor: Colors.indigo,
           automaticallyImplyLeading: false,
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(Icons.camera_alt),
-          label: Text('당첨 번호 확인'),
-          onPressed: () { _scan(); },
-          backgroundColor: Colors.indigo,
-        ),
-        body:_tabs[Provider.of<TabStates>(context, listen: false).selectedIndex],
+        
+        body:  _tabs[Provider.of<TabStates>(context, listen: false).selectedIndex],
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: Colors.indigo,
             onTap: _onItemTapped,
@@ -45,8 +48,11 @@ class _TabPageState extends State<TabPage> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.adb), title: Text('AI 번호 추천')),
               BottomNavigationBarItem(
+                  icon: Icon(Icons.camera_alt), title: Text('QR 확인')),
+              BottomNavigationBarItem(
                   icon: Icon(Icons.account_circle), title: Text('통계')),
             ]),
+            
       ),
     );
   }
@@ -57,7 +63,7 @@ class _TabPageState extends State<TabPage> {
     });
   }
 
-    Future _scan() async {
+  Future _scan() async {
     String barcode = await scan();
     launchURL(barcode);
     setState(() {});
