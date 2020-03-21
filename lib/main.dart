@@ -5,7 +5,6 @@ import 'package:jtblotto/data/lottoinfo.dart';
 import 'package:jtblotto/data/sixnumbers.dart';
 import 'package:jtblotto/data/tabstates.dart';
 import 'package:jtblotto/rootpage.dart';
-import 'package:jtblotto/tabpage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';

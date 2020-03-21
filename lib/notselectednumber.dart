@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jtblotto/data/ball_colors.dart';
 import 'package:jtblotto/data/lottoinfo.dart';
-import 'package:jtblotto/data/number_of_counter.dart';
 import 'package:provider/provider.dart';
 
 class NotSelectedNumber extends StatefulWidget {
@@ -14,7 +13,6 @@ class _NotSelectedNumberState extends State<NotSelectedNumber> {
  
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
   }

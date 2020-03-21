@@ -3,11 +3,11 @@ class SoundSearcher
     static const int HANGUL_BEGIN_UNICODE = 44032;
     static const int HANGUL_LAST_UNICODE = 55203;
     static const int HANGUL_BASE_UNIT = 588;
-    static final List<int> INITIAL_SOUND = ['ㄱ'.codeUnitAt(0), 'ㄲ'.codeUnitAt(0), 'ㄴ'.codeUnitAt(0), 'ㄷ'.codeUnitAt(0), 'ㄸ'.codeUnitAt(0), 'ㄹ'.codeUnitAt(0), 'ㅁ'.codeUnitAt(0), 'ㅂ'.codeUnitAt(0), 'ㅃ'.codeUnitAt(0), 'ㅅ'.codeUnitAt(0), 'ㅆ'.codeUnitAt(0), 'ㅇ'.codeUnitAt(0), 'ㅈ'.codeUnitAt(0), 'ㅉ'.codeUnitAt(0), 'ㅊ'.codeUnitAt(0), 'ㅋ'.codeUnitAt(0), 'ㅌ'.codeUnitAt(0), 'ㅍ'.codeUnitAt(0), 'ㅎ'.codeUnitAt(0)];
+    static final List<int> _installSound = ['ㄱ'.codeUnitAt(0), 'ㄲ'.codeUnitAt(0), 'ㄴ'.codeUnitAt(0), 'ㄷ'.codeUnitAt(0), 'ㄸ'.codeUnitAt(0), 'ㄹ'.codeUnitAt(0), 'ㅁ'.codeUnitAt(0), 'ㅂ'.codeUnitAt(0), 'ㅃ'.codeUnitAt(0), 'ㅅ'.codeUnitAt(0), 'ㅆ'.codeUnitAt(0), 'ㅇ'.codeUnitAt(0), 'ㅈ'.codeUnitAt(0), 'ㅉ'.codeUnitAt(0), 'ㅊ'.codeUnitAt(0), 'ㅋ'.codeUnitAt(0), 'ㅌ'.codeUnitAt(0), 'ㅍ'.codeUnitAt(0), 'ㅎ'.codeUnitAt(0)];
 
     static bool isInitialSound(int searchar)
     {
-        for (int c in INITIAL_SOUND) {
+        for (int c in _installSound) {
             if (c == searchar) {
                 return true;
             }
@@ -19,16 +19,12 @@ class SoundSearcher
     {
         int hanBegin = (c - HANGUL_BEGIN_UNICODE);
         int index = (hanBegin ~/ HANGUL_BASE_UNIT);
-        return INITIAL_SOUND[index];
+        return _installSound[index];
     }
 
     static bool isHangul(int c)
     {
         return (HANGUL_BEGIN_UNICODE <= c) && (c <= HANGUL_LAST_UNICODE);
-    }
-
-    SoundSearcher()
-    {
     }
 
     static bool matchString(String value, String search)

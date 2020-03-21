@@ -10,7 +10,6 @@ class GetQRCamera extends StatefulWidget {
 class _GetQRCameraState extends State<GetQRCamera> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _scan();
   }

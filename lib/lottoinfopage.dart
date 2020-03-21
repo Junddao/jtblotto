@@ -1,14 +1,7 @@
 
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:jtblotto/data/lottoinfo.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:jtblotto/data/lottoinfo.dart';
 import 'package:jtblotto/notselectednumber.dart';
 import 'package:jtblotto/selected_number_page.dart';
-import 'package:jtblotto/services/database.dart';
-import 'package:provider/provider.dart';
 import 'package:synchronized/synchronized.dart';
 
 
@@ -19,8 +12,6 @@ class LottoInfoPage extends StatefulWidget {
 }
 
 class _LottoInfoPageState extends State<LottoInfoPage> {
-
-  List<LottoInfo> _liLottoInfo = List<LottoInfo>();
   int mostSelectedNum = 0;
 
 

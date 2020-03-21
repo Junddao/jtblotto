@@ -70,7 +70,7 @@ class _SelectedNumberPageState extends State<SelectedNumberPage> {
          
           Expanded(
             child: ListView.separated(
-              separatorBuilder: (BuildContext context, int index) => const Divider(color: Colors.grey, thickness: 1,),
+              separatorBuilder: (BuildContext context, int index) => const Divider(color: Colors.grey,),
               itemCount: Provider.of<LottoInfos>(context, listen: false).liNumbers.length - 1,
               itemBuilder: (BuildContext context, int index){
                 return Container(

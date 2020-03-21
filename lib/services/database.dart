@@ -29,8 +29,6 @@ class Database{
     DatabaseReference ref = FirebaseDatabase.instance.reference();
     List<LottoInfo> liLottoInfo = List<LottoInfo>();
     try{
-
-
       await ref.child('lottoRecord').once().then((DataSnapshot snap) {
         var datas = snap.value;
         for (var data in datas) {
@@ -55,11 +53,12 @@ class Database{
           }
         }
       });
-      return liLottoInfo;
+      //return liLottoInfo;
     }
     catch(Exception){
       print('aaa');
     }
+    return liLottoInfo;
     
   }
   

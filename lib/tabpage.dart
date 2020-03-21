@@ -8,7 +8,6 @@ import 'package:jtblotto/homepage.dart';
 import 'package:jtblotto/lottoinfopage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:qrscan/qrscan.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 
@@ -22,13 +21,11 @@ class TabPage extends StatefulWidget {
 
 class _TabPageState extends State<TabPage> {
   String _url = 'https://play.google.com/store/apps/details?id=com.jtb.jtblotto';
-  int _selectedIndex = 0;
   final List<Widget> _tabs = [HomePage(), CalcurateNumber(), GetQRCamera(), LottoInfoPage()];
   String friendPhoneNumber;
   
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
   @override
@@ -82,13 +79,6 @@ class _TabPageState extends State<TabPage> {
     });
   }
 
-  Future _scan() async {
-    String barcode = await scan();
-    launchURL(barcode);
-    setState(() {});
-    
-  }
-
    Future launchURL(String barcode) async {
      await launch(barcode);
    }
@@ -103,8 +93,7 @@ class _TabPageState extends State<TabPage> {
 
   Future<void> _sendSMS() async {
     try {
-      String _result =
-          await sendSMS(message: _url, recipients: [friendPhoneNumber]);
+      await sendSMS(message: _url, recipients: [friendPhoneNumber]);
       setState(() {});
     } catch (error) {
       setState(() {});
