@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:jtblotto/data/ball_colors.dart';
 import 'package:jtblotto/data/lottoinfo.dart';
 import 'package:jtblotto/data/number_of_counter.dart';
+import 'package:jtblotto/data/sixnumbers.dart';
 import 'package:jtblotto/services/myadshelper.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,7 @@ class _CalcurateNumberState extends State<CalcurateNumber> {
 
   @override
   void initState() {
+    
     super.initState();
     
   }
@@ -32,16 +34,7 @@ class _CalcurateNumberState extends State<CalcurateNumber> {
         ),
         Expanded(
           flex: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              getNumbers(numbers[0]) ,
-              getNumbers(numbers[1]) ,
-              getNumbers(numbers[2]) ,
-              getNumbers(numbers[3]) ,
-              getNumbers(numbers[4]) ,
-              getNumbers(numbers[5]) ,
-          ],),
+          child: getNumbers() ,
         ),
         Expanded(
           flex: 2,
@@ -58,7 +51,7 @@ class _CalcurateNumberState extends State<CalcurateNumber> {
             child: Text('완전 랜덤'),
             onPressed: () {
               getRandomNumber(6);
-              setState(() {});
+              //setState(() {});
             },
           ),
         ),
@@ -66,10 +59,10 @@ class _CalcurateNumberState extends State<CalcurateNumber> {
           padding: EdgeInsets.all(1),
             child: FlatButton(
             //color: Colors.pink[300],
-            child: Text('Junddao AI 추천 #1'),
+            child: Text('AI 추천 #1 (많이 나온 번호)'),
             onPressed: () {
               getManySelectedRecommandNumber();
-              setState(() {});
+              //setState(() {});
             },
           ),
         ),
@@ -77,10 +70,10 @@ class _CalcurateNumberState extends State<CalcurateNumber> {
           padding: EdgeInsets.all(1),
             child: FlatButton(
             //color: Colors.blue[300],
-            child: Text('Junddao AI 추천 #2'),
+            child: Text('AI 추천 #2 (적게 나온 번호)'),
             onPressed: () {
               getaLittleSelectedRecommandNumber();
-              setState(() {});
+              //setState(() {});
             },
           ),
         ),
@@ -117,6 +110,7 @@ class _CalcurateNumberState extends State<CalcurateNumber> {
       }
     }
     numbers.sort();
+    Provider.of<SixNumbers>(context, listen: false).setNumbers(numbers);
   }
 
   getRandom4Number(List<int> recommandNumber){
@@ -144,6 +138,7 @@ class _CalcurateNumberState extends State<CalcurateNumber> {
       }
     }
     numbers.sort();
+    Provider.of<SixNumbers>(context, listen: false).setNumbers(numbers);
   }
 
 
@@ -159,6 +154,7 @@ class _CalcurateNumberState extends State<CalcurateNumber> {
     }
     getRandom4Number(recommandNumber);
     numbers.sort();
+    Provider.of<SixNumbers>(context, listen: false).setNumbers(numbers);
   }
 
   getaLittleSelectedRecommandNumber(){
@@ -173,6 +169,7 @@ class _CalcurateNumberState extends State<CalcurateNumber> {
     }
     getRandom4Number(recommandNumber);
     numbers.sort();
+    Provider.of<SixNumbers>(context, listen: false).setNumbers(numbers);
   }
 
   void initArray(List temp){
@@ -181,13 +178,44 @@ class _CalcurateNumberState extends State<CalcurateNumber> {
     }
   }
 
-  Widget getNumbers(int index){
-
-    return CircleAvatar(
-      backgroundColor: BallColors.getBallColor(index),
-      radius: 14,
-      child: Text(index.toString(), textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
-    );  
+  Widget getNumbers(){
+    //List<int> value.getNumbers() = Provider.of<SixNumbers>(context).getNumbers();
+    return Consumer<SixNumbers>(
+      builder: (context, value, child) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          CircleAvatar(
+            backgroundColor: BallColors.getBallColor(value.getNumbers()[0]),
+            radius: 14,
+            child: Text(value.getNumbers()[0].toString(), textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
+          ),
+          CircleAvatar(
+            backgroundColor: BallColors.getBallColor(value.getNumbers()[1]),
+            radius: 14,
+            child: Text(value.getNumbers()[1].toString(), textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
+          ),
+          CircleAvatar(
+            backgroundColor: BallColors.getBallColor(value.getNumbers()[2]),
+            radius: 14,
+            child: Text(value.getNumbers()[2].toString(), textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
+          ),
+          CircleAvatar(
+            backgroundColor: BallColors.getBallColor(value.getNumbers()[3]),
+            radius: 14,
+            child: Text(value.getNumbers()[3].toString(), textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
+          ),
+          CircleAvatar(
+            backgroundColor: BallColors.getBallColor(value.getNumbers()[4]),
+            radius: 14,
+            child: Text(value.getNumbers()[4].toString(), textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
+          ),
+          CircleAvatar(
+            backgroundColor: BallColors.getBallColor(value.getNumbers()[5]),
+            radius: 14,
+            child: Text(value.getNumbers()[5].toString(), textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
+          ),
+        ],
+      ),
+    );
   }
-  
 }

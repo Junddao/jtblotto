@@ -37,7 +37,10 @@ dependencies:
     git:
       url: git://github.com/pichillilorenzo/flutter_inappwebview.git
       ref: master
-  
+  flutter_sms: ^2.0.0+2
+  contact_picker: ^0.0.2
+  contacts_service: ^0.3.10
+
 
 
 dev_dependencies:

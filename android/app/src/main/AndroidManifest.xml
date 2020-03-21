@@ -9,6 +9,7 @@
 <uses-permission android:name="android.permission.CAMERA" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.READ_CONTACTS" />
          
     <application
         android:name="io.flutter.app.FlutterApplication"
@@ -30,6 +31,9 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-9695790043722201~1735664360"/>
+            <!-- android:value="ca-app-pub-3940256099942544~3347511713"/> -->
+            
+            
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

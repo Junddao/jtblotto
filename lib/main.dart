@@ -2,6 +2,7 @@
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:jtblotto/data/lottoinfo.dart';
+import 'package:jtblotto/data/sixnumbers.dart';
 import 'package:jtblotto/data/tabstates.dart';
 import 'package:jtblotto/rootpage.dart';
 import 'package:jtblotto/tabpage.dart';
@@ -92,6 +93,10 @@ class AfterSplash extends StatelessWidget {
           create: (context) => LottoInfos(),
           child: MyApp(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => SixNumbers(),
+          child: MyApp(),
+        ),
       ] ,
       child: MaterialApp(
         home : RootPage(),
@@ -101,8 +106,9 @@ class AfterSplash extends StatelessWidget {
   }
   void permission() async {
 
-    await PermissionHandler().requestPermissions([PermissionGroup.camera]);
+    // await PermissionHandler().requestPermissions([PermissionGroup.camera]);
     await PermissionHandler().requestPermissions([PermissionGroup.storage]);
+    // await PermissionHandler().requestPermissions([PermissionGroup.contacts]);
   }
 
 }

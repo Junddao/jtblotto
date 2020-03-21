@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:jtblotto/calcuratenumber.dart';
+import 'package:jtblotto/data/appbarcontents.dart';
 import 'package:jtblotto/data/tabstates.dart';
+import 'package:jtblotto/getContactsPage.dart';
 import 'package:jtblotto/get_qr_camera.dart';
 import 'package:jtblotto/homepage.dart';
 import 'package:jtblotto/lottoinfopage.dart';
-import 'package:jtblotto/services/myadshelper.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:qrscan/qrscan.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 
 
 class TabPage extends StatefulWidget {
@@ -15,10 +18,13 @@ class TabPage extends StatefulWidget {
   _TabPageState createState() => _TabPageState();
 }
 
+
+
 class _TabPageState extends State<TabPage> {
+  String _url = 'https://play.google.com/store/apps/details?id=com.jtb.jtblotto';
   int _selectedIndex = 0;
   final List<Widget> _tabs = [HomePage(), CalcurateNumber(), GetQRCamera(), LottoInfoPage()];
-
+  String friendPhoneNumber;
   
   @override
   void initState() {
@@ -34,6 +40,19 @@ class _TabPageState extends State<TabPage> {
           title: Text('JTB Lotto'),
           backgroundColor: Colors.indigo,
           automaticallyImplyLeading: false,
+          actions: <Widget>[
+            PopupMenuButton<String>(
+              onSelected: choiceAction,
+              itemBuilder: (BuildContext context) {
+                return AppBarContants.choices.map((String choice){
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(choice),
+                  );
+                }).toList();
+              }
+            ),
+          ],
         ),
         
         body:  _tabs[Provider.of<TabStates>(context, listen: false).selectedIndex],
@@ -73,5 +92,29 @@ class _TabPageState extends State<TabPage> {
    Future launchURL(String barcode) async {
      await launch(barcode);
    }
+
+
+
+  Future<void> choiceAction(String choice) async{
+    await permission('contacts');
+    friendPhoneNumber = await Navigator.push(context, MaterialPageRoute(builder: (context) => GetContactPage()));
+    await _sendSMS();
+  }
+
+  Future<void> _sendSMS() async {
+    try {
+      String _result =
+          await sendSMS(message: _url, recipients: [friendPhoneNumber]);
+      setState(() {});
+    } catch (error) {
+      setState(() {});
+    }
+  }
+
+   Future<void> permission(String choice) async {
+
+    if(choice == 'camera') await PermissionHandler().requestPermissions([PermissionGroup.camera]);
+    else if(choice == 'contacts') await PermissionHandler().requestPermissions([PermissionGroup.contacts]);
+  }
 
 }
