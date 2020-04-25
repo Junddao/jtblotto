@@ -134,13 +134,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.14.11"
-  contact_picker:
-    dependency: "direct main"
-    description:
-      name: contact_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.2"
   contacts_service:
     dependency: "direct main"
     description:
@@ -230,15 +223,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_inappwebview:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: master
-      resolved-ref: "9c7ac0da8f01ceb40430da58397bdb31968ca5b1"
-      url: "git://github.com/pichillilorenzo/flutter_inappwebview.git"
-    source: git
-    version: "3.0.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -646,13 +630,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1+1"
-  uuid:
-    dependency: transitive
-    description:
-      name: uuid
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.4"
   vector_math:
     dependency: transitive
     description:
@@ -674,6 +651,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  webview_flutter:
+    dependency: "direct main"
+    description:
+      name: webview_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.20"
   xml:
     dependency: transitive
     description:
@@ -690,4 +674,4 @@ packages:
     version: "2.2.0"
 sdks:
   dart: ">=2.7.0 <3.0.0"
-  flutter: ">=1.12.13+hotfix.4 <2.0.0"
+  flutter: ">=1.12.13+hotfix.5 <2.0.0"

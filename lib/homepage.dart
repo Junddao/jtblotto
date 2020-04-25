@@ -1,6 +1,8 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,7 +12,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   
-  InAppWebViewController webView;
+  WebViewController _webViewController;
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
   String url = "";
   double progress = 0;
 
@@ -22,44 +26,22 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pop(context);
-        return false;
+        var future = _webViewController.canGoBack();
+        future.then((canGoBack) {
+          if (canGoBack) {
+            _webViewController.goBack();
+          } 
+        });
+        return Future.value(false);
       },
       child : Scaffold(
         body: SafeArea(
-          
-          child : InAppWebView(
+          child : WebView(
             initialUrl: lottoUrl,
-            initialHeaders: {},
-            initialOptions: InAppWebViewWidgetOptions(
-             
-              crossPlatform: InAppWebViewOptions(
-                
-                debuggingEnabled: true,
-
-              ),
-              
-            ),
-         
-            onWebViewCreated: (InAppWebViewController controller) {
-              webView = controller;
+            javascriptMode: JavascriptMode.unrestricted,
+            onWebViewCreated: (WebViewController webViewController) {
+              _webViewController = webViewController;
             },
-            onLoadStart: (InAppWebViewController controller, String url) {
-              setState(() {
-                this.url = url;
-              });
-            },
-            onLoadStop: (InAppWebViewController controller, String url) async {
-              setState(() {
-                this.url = url;
-              });
-            },
-            onProgressChanged: (InAppWebViewController controller, int progress) {
-              setState(() {
-                this.progress = progress / 100;
-              });
-            },
-            
           ),
         ),
       //   child: WebView(
