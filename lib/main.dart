@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:jtblotto/data/lottoinfo.dart';
@@ -11,6 +13,7 @@ import 'package:splashscreen/splashscreen.dart';
 
 void main(){
   Admob.initialize("com.jtb.jtblotto");
+  HttpOverrides.global = new MyHttpOverrides();
   runApp(
     new MaterialApp(
       home: MyApp(),
@@ -110,4 +113,12 @@ class AfterSplash extends StatelessWidget {
     // await PermissionHandler().requestPermissions([PermissionGroup.contacts]);
   }
 
+}
+
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
 }
