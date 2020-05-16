@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   double progress = 0;
 
 
-  String lottoUrl = 'https://m.dhlottery.co.kr/common.do?method=main';
+  String lottoUrl = 'https://m.dhlottery.co.kr/common.do?method=gameInfoAll&wiselog=M_A_1_7';
   
 
   @override

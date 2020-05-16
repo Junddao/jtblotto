@@ -117,7 +117,8 @@ class _GetDBDataPageState extends State<GetDBDataPage> {
     var lottoInfos = List<LottoInfo>();
     int episode = drwCount;
     while(true){
-      http.Response response = await http.get(url + episode.toString());
+      var response2 = await http.get(url + episode.toString());
+      http.Response response = response2;
       var lottoJson = jsonDecode(response.body);
       LottoInfo info = LottoInfo.fromJson(lottoJson);
       if(info.returnValue.contains('fail')){
